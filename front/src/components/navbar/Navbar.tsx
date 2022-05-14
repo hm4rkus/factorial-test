@@ -17,7 +17,9 @@ export const Navbar = (): React.ReactElement => {
       <Logo size={'lg'}>{NAVBAR_LOGO}</Logo>
       <Navigation>
         {LINKS.map(({ name, path }) => (
-          <NavigationLink to={path}>{name}</NavigationLink>
+          <NavigationLink key={path} to={path}>
+            {name}
+          </NavigationLink>
         ))}
       </Navigation>
     </NavbarContainer>

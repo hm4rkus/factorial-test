@@ -29,5 +29,12 @@ export const GlobalStyle = createGlobalStyle`
         --font-medium: 18px;
         --font-large: 20px;
         --font-extra-large: 22px;
+
+        --font-weight-thin: 200;
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semi-bold: 600;
+        --font-weight-bold: bold;
     }
 `

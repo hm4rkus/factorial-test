@@ -1,4 +1,4 @@
-import { Button, Heading } from '@chakra-ui/react'
+import { Button } from '@chakra-ui/react'
 import styled from 'styled-components'
 
 export const Form = styled.form`

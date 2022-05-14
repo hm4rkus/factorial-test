@@ -2,11 +2,11 @@ import { DataPoint } from './dashboard.types'
 
 const mockedData: DataPoint[] = []
 
-for (let i = 0; i < 1000; i++) {
+for (let i = 0; i < 50; i++) {
   mockedData.push({
     value: (Math.random() - 0.5) * 1000,
-    timestamp: new Date(Math.random() * 1000).getTime(),
-    name: `Data ${i}`,
+    timestamp: new Date(Math.random() * 2000).getTime(),
+    name: `Data ${i + 1}`,
   })
 }
 
