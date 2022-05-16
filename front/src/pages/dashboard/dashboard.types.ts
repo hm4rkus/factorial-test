@@ -1,8 +1,4 @@
-export interface DataPoint {
-  name: string
-  value: number
-  timestamp: number
-}
+import { DataPoint } from 'types/DataPoint'
 
 export interface TableData {
   name: string

@@ -5,4 +5,5 @@ export const Card = styled.div`
   border: solid 1px lightgray;
   border-radius: 8px;
   padding: var(--size-medium);
+  background: var(--white);
 `

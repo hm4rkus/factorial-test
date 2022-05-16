@@ -1,6 +1,9 @@
 // Types
 import { FieldDefinition, FieldKey } from './createPage.types'
 
+export const UNKNOWN_ERROR =
+  'Something went wrong with your request, please try again.'
+
 export const FIELDS: Record<FieldKey, FieldDefinition> = {
   [FieldKey.NAME]: {
     label: 'Name',
@@ -22,7 +25,7 @@ export const FIELDS: Record<FieldKey, FieldDefinition> = {
   },
 }
 
-export const INITIAL_FIELD_STATE: Record<FieldKey, string | number> = {
+export const INITIAL_FIELD_STATE: Record<FieldKey, string> = {
   [FieldKey.TIMESTAMP]: '',
   [FieldKey.NAME]: '',
   [FieldKey.VALUE]: '',

@@ -10,6 +10,7 @@ export const PageFrame = styled.div`
   overflow: auto;
   display: flex;
   flex-direction: column;
+  background: var(--background);
 `
 
 export const PageContainer = styled.div`

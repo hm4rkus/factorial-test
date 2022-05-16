@@ -37,7 +37,14 @@ export const DashboardPage = (): React.ReactElement => {
     const getData = async () => {
       try {
         const fetchedData = await fetchData()
-        setData(fetchedData)
+
+        // Create Date Instances and add data to the state.
+        setData(
+          fetchedData.map((dataPoint) => ({
+            ...dataPoint,
+            timestamp: new Date(dataPoint.timestamp),
+          }))
+        )
         setIsLoading(false)
       } catch (e) {
         setIsLoading(false)

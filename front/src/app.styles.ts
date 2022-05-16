@@ -9,6 +9,8 @@ export const GlobalStyle = createGlobalStyle`
     :root{
         /* Colors */
         --primary: #e41943;
+        --background: #f0f0f0;
+        --white: white;
 
         /* Navnar */
         --navbar-height: 68px;

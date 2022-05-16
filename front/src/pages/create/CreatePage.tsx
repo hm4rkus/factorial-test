@@ -4,13 +4,43 @@ import React, { useCallback, useState } from 'react'
 import { InputWithLabel } from 'components/inputWithLabel/InputWithLabel'
 
 // Constants
-import { FIELDS, INITIAL_FIELD_STATE } from './createPage.constants'
+import {
+  FIELDS,
+  INITIAL_FIELD_STATE,
+  UNKNOWN_ERROR,
+} from './createPage.constants'
 
 // Styles
 import { CustomButton, Form } from './createPage.styles'
 
+// Services
+import { postDataPoint } from './createPage.services'
+import { TitledCard } from 'components'
+
 export const CreatePage = (): React.ReactElement => {
   const [fieldValues, setFieldValues] = useState(INITIAL_FIELD_STATE)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const onSubmit = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      try {
+        setIsLoading(true)
+        await postDataPoint(
+          fieldValues.NAME,
+          Number(fieldValues.VALUE),
+          new Date(fieldValues.TIMESTAMP).getTime()
+        )
+        setIsLoading(false)
+      } catch (e) {
+        console.error(e)
+        setError(UNKNOWN_ERROR)
+        setIsLoading(false)
+      }
+    },
+    [fieldValues]
+  )
 
   /**
    * On Input Change Callback.
@@ -26,10 +56,11 @@ export const CreatePage = (): React.ReactElement => {
   )
 
   return (
-    <>
-      <Form>
+    <TitledCard title={'New Data Point'}>
+      <Form onSubmit={onSubmit}>
         {Object.values(FIELDS).map(({ id, label, type, helperText }) => (
           <InputWithLabel
+            required
             key={id}
             id={id}
             label={label}
@@ -39,8 +70,10 @@ export const CreatePage = (): React.ReactElement => {
             helperText={helperText}
           />
         ))}
+        <CustomButton disabled={isLoading} type='submit'>
+          Add Data Point
+        </CustomButton>
       </Form>
-      <CustomButton>Add Data Point</CustomButton>
-    </>
+    </TitledCard>
   )
 }

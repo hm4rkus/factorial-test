@@ -1,4 +1,9 @@
-import { DataPoint } from './dashboard.types'
+import axios from 'axios'
+
+// Types
+import { DataPoint } from 'types/DataPoint'
+
+const endpoint = process.env.REACT_APP_BACKEND + '/data'
 
 const mockedData: DataPoint[] = []
 
@@ -11,9 +16,5 @@ for (let i = 0; i < 100; i++) {
 }
 
 export const fetchData = async (): Promise<DataPoint[]> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockedData)
-    }, 1000)
-  })
+  return axios.get<DataPoint[]>(endpoint).then((response) => response.data)
 }
