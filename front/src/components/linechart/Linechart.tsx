@@ -13,9 +13,10 @@ import { CustomTooltip } from 'components'
 // Constants
 import { LINECHART_HEIGHT } from './linechart.constants'
 import { dateFormatter } from 'utils/dateFormatter'
+import { numberFormatter } from 'utils'
 
 interface LineChartProps {
-  data: any[]
+  data: unknown[]
   xAccessor: string
   yAccessor: string
   labelAccessor: string
@@ -34,10 +35,11 @@ export const LineChart = ({
         <CartesianGrid />
         <Line stroke={'var(--primary)'} dataKey={yAccessor} type='monotone' />
         <XAxis
-          tickFormatter={(value) => dateFormatter(value)}
+          tickFormatter={dateFormatter}
           dataKey={xAccessor}
+          tickMargin={12}
         />
-        <YAxis />
+        <YAxis tickFormatter={numberFormatter} />
         <Tooltip
           content={(props) => (
             <CustomTooltip labelAccessor={labelAccessor} {...props} />

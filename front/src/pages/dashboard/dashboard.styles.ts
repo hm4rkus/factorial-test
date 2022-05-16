@@ -24,3 +24,26 @@ export const TableContainer = styled(Card)`
   overflow: auto;
   padding: var(--size-small);
 `
+
+export const AverageRow = styled.div`
+  display: flex;
+
+  @media (max-width: 500px) {
+    flex-wrap: wrap;
+  }
+
+  & > * {
+    &:not(:last-of-type) {
+      margin-right: var(--size-large);
+    }
+    width: 100%;
+
+    @media (max-width: 500px) {
+      margin-right: 0px !important;
+
+      &:not(:first-of-type) {
+        margin-top: var(--size-large);
+      }
+    }
+  }
+`

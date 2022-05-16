@@ -6,6 +6,7 @@ import {
   Thead,
   Tr,
 } from '@chakra-ui/react'
+import { useMemo } from 'react'
 import { Column, useTable } from 'react-table'
 
 interface TableProps<T extends {}> {
@@ -14,7 +15,7 @@ interface TableProps<T extends {}> {
 }
 
 export const Table = <T extends {}>({ data, columns }: TableProps<T>) => {
-  const tableInstance = useTable({ columns, data })
+  const tableInstance = useTable({ columns: columns, data })
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance

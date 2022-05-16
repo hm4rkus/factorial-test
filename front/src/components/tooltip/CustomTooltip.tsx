@@ -14,7 +14,6 @@ export const CustomTooltip = ({
   payload,
   labelAccessor,
 }: CustomTooltipProps) => {
-  console.log(payload)
   return active && payload && payload.length ? (
     <TooltipContainer>
       {labelAccessor && <Name>{payload[0].payload[labelAccessor]}</Name>}

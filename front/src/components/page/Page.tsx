@@ -12,7 +12,7 @@ export const Page = ({ heading, children }: PageProps) => {
       <Navbar />
       <PageFrame>
         <PageContainer>
-          <PageHeading>{heading}</PageHeading>
+          <PageHeading size={'lg'}>{heading}</PageHeading>
           {children}
         </PageContainer>
       </PageFrame>
