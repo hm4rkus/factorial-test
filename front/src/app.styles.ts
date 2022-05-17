@@ -38,5 +38,10 @@ export const GlobalStyle = createGlobalStyle`
         --font-weight-medium: 500;
         --font-weight-semi-bold: 600;
         --font-weight-bold: bold;
+
+
+        /* Line Chart */ 
+        --linechart-stroke-color: var(--primary);
+        --linechart-stroke-width: 2px;
     }
 `

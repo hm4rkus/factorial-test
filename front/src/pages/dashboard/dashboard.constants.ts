@@ -1,5 +1,4 @@
 import {
-  DataPoint,
   DataPointAccessor,
   ExtraInfoCard,
   TableDataAccessor,

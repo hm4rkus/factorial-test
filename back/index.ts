@@ -26,7 +26,7 @@ db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/data", async (req: Request, res: Response) => {
   try {
-    const data = await DataPoint.find();
+    const data = await DataPoint.find().sort({ timestamp: "asc" });
     res.send(data);
   } catch (error) {
     return handleError(error as Error, res);

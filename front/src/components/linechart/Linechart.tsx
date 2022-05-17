@@ -11,7 +11,7 @@ import {
 import { CustomTooltip } from 'components'
 
 // Constants
-import { LINECHART_HEIGHT } from './linechart.constants'
+import { LINECHART_HEIGHT, LINECHART_TICK_MARGIN } from './linechart.constants'
 import { dateFormatter } from 'utils/dateFormatter'
 import { numberFormatter } from 'utils'
 
@@ -33,16 +33,25 @@ export const LineChart = ({
     <ResponsiveContainer width={'100%'} height={LINECHART_HEIGHT}>
       <RechartsLineChart data={data}>
         <CartesianGrid />
-        <Line stroke={'var(--primary)'} dataKey={yAccessor} type='monotone' />
+        <Line
+          stroke={'var(--linechart-stroke-color)'}
+          strokeWidth={'var(--linechart-stroke-width)'}
+          dataKey={yAccessor}
+          type='monotone'
+        />
         <XAxis
-          tickFormatter={dateFormatter}
+          tickFormatter={(value) => dateFormatter(value)}
           dataKey={xAccessor}
-          tickMargin={12}
+          tickMargin={LINECHART_TICK_MARGIN}
         />
         <YAxis tickFormatter={numberFormatter} />
         <Tooltip
           content={(props) => (
-            <CustomTooltip labelAccessor={labelAccessor} {...props} />
+            <CustomTooltip
+              labelAccessor={labelAccessor}
+              dateAccessor={xAccessor}
+              {...props}
+            />
           )}
         />
       </RechartsLineChart>

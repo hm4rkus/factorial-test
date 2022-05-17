@@ -19,10 +19,9 @@ export const CardColumn = styled.div`
 
 export const LineChartContainer = styled.div``
 
-export const TableContainer = styled(Card)`
+export const TableContainer = styled.div`
   max-height: 400px;
   overflow: auto;
-  padding: var(--size-small);
 `
 
 export const AverageRow = styled.div`

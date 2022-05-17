@@ -9,8 +9,9 @@ import {
   UNKNOWN_ERROR,
 } from './dashboard.constants'
 
-// Styles
-import { DataPoint, TableData } from './dashboard.types'
+// Types
+import { DataPoint } from 'types/DataPoint'
+import { TableData } from './dashboard.types'
 
 // Services
 import { fetchData } from './dashboard.services'
@@ -42,7 +43,7 @@ export const DashboardPage = (): React.ReactElement => {
         setData(
           fetchedData.map((dataPoint) => ({
             ...dataPoint,
-            timestamp: new Date(dataPoint.timestamp),
+            timestamp: new Date(dataPoint.timestamp).getTime(),
           }))
         )
         setIsLoading(false)
@@ -72,7 +73,7 @@ export const DashboardPage = (): React.ReactElement => {
   const formattedData: TableData[] = useMemo(() => {
     return data.map((dataElement) => ({
       ...dataElement,
-      date: dateFormatter(dataElement.timestamp),
+      date: dateFormatter(dataElement.timestamp, true),
       value: numberFormatter(dataElement.value),
     }))
   }, [data])
@@ -98,6 +99,7 @@ export const DashboardPage = (): React.ReactElement => {
           <AverageRow>
             {EXTRA_INFO_CARDS.map(({ title, accessor, unit }) => (
               <ValueCard
+                key={title}
                 title={title}
                 unit={unit}
                 value={averages[accessor]}
@@ -105,9 +107,8 @@ export const DashboardPage = (): React.ReactElement => {
               />
             ))}
           </AverageRow>
-          <TitledCard title={'Table'}>
+          <TitledCard title={'Data Table'}>
             <TableContainer>
-              {/*TODO: Data Formatters */}
               <Table columns={TABLE_COLUMNS} data={formattedData} />
             </TableContainer>
           </TitledCard>

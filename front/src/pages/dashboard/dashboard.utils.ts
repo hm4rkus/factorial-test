@@ -1,5 +1,5 @@
 // Types
-import { DataPoint } from './dashboard.types'
+import { DataPoint } from 'types/DataPoint'
 
 // Utils
 import { sum } from 'utils'

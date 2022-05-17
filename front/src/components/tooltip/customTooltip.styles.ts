@@ -8,9 +8,13 @@ export const TooltipContainer = styled(Card)`
 `
 
 export const Name = styled.div`
-  font-weight: var(--font-weight-bold);
+  font-size: var(--font-medium);
+  font-weight: var(--font-weight-semi-bold);
 `
 
 export const Value = styled.div`
   color: var(--primary);
+  font-weight: var(--font-weight-medium);
 `
+
+export const Date = styled.div``

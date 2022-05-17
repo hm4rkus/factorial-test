@@ -7,10 +7,15 @@ import { Heading } from 'components/heading'
 interface TitledCardProps {
   children: React.ReactNode
   title: string
+  size?: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 }
-export const TitledCard = ({ children, title }: TitledCardProps) => (
+export const TitledCard = ({
+  children,
+  title,
+  size = 'md',
+}: TitledCardProps) => (
   <Card>
-    <Heading size={'md'}>{title}</Heading>
+    <Heading size={size}>{title}</Heading>
     {children}
   </Card>
 )

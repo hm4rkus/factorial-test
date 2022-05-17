@@ -20,7 +20,7 @@ export const ValueCard = <T,>({
   )
 
   return (
-    <TitledCard title={title}>
+    <TitledCard title={title} size='sm'>
       <Value>{`${formattedValue} ${unit}`}</Value>
     </TitledCard>
   )
