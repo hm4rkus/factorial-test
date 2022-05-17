@@ -30,7 +30,7 @@ export const Table = <T,>({ data, columns }: TableProps<T>) => {
               {headerGroup.headers.map((column) => {
                 const { key, ...props } = column.getHeaderProps()
                 return (
-                  <Th key={key} {...props}>
+                  <Th color={"var(--primary)"} key={key} {...props}>
                     {column.render('Header')}
                   </Th>
                 )

@@ -3,7 +3,8 @@ import axios from 'axios'
 // Types
 import { DataPoint } from 'types/DataPoint'
 
-const endpoint = process.env.REACT_APP_BACKEND + '/data'
+const getEndpoint = process.env.REACT_APP_BACKEND + '/data'
+const addEndpoint = process.env.REACT_APP_BACKEND + '/add'
 
 const mockedData: DataPoint[] = []
 
@@ -15,6 +16,14 @@ for (let i = 0; i < 100; i++) {
   })
 }
 
-export const fetchData = async (): Promise<DataPoint[]> => {
-  return axios.get<DataPoint[]>(endpoint).then((response) => response.data)
+export const fetchDataPoints = async (): Promise<DataPoint[]> => {
+  return axios.get<DataPoint[]>(getEndpoint).then((response) => response.data)
+}
+
+export const postDataPoint = (
+  name: string,
+  value: number,
+  timestamp: number
+) => {
+  return axios.post(addEndpoint, { name, value, timestamp })
 }

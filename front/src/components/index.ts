@@ -1,4 +1,5 @@
 export * from './card'
+export * from './button'
 export * from './titledCard'
 export * from './valueCard'
 export * from './heading'

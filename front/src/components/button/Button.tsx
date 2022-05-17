@@ -3,9 +3,15 @@ import React from 'react'
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Button = ({ children, onClick }: ButtonProps) => {
-  return <ChakraButton onClick={onClick}>{children}</ChakraButton>
+export const Button = ({ children, disabled, type, onClick }: ButtonProps) => {
+  return (
+    <ChakraButton type={type} onClick={onClick} disabled={disabled}>
+      {children}
+    </ChakraButton>
+  )
 }

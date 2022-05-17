@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { Card } from 'components'
+import { Card, Heading } from 'components'
 
 export const LoadingSpinnerContainer = styled.div`
   width: 100%;
@@ -17,7 +17,12 @@ export const CardColumn = styled.div`
   }
 `
 
-export const LineChartContainer = styled.div``
+export const HeadingRow = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--size-medium);
+`
 
 export const TableContainer = styled.div`
   max-height: 400px;

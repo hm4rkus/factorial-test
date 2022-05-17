@@ -7,12 +7,12 @@ import { Page } from 'components/page/Page'
 export const Router = () => {
   return (
     <Routes>
-      {ROUTES.map(({ path, element: Element, heading }) => (
+      {ROUTES.map(({ path, element: Element }) => (
         <Route
           key={path}
           path={path}
           element={
-            <Page heading={heading}>
+            <Page>
               <Element />
             </Page>
           }

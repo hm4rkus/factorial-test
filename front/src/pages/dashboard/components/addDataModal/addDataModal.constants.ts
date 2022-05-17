@@ -1,5 +1,5 @@
 // Types
-import { FieldDefinition, FieldKey } from './createPage.types'
+import { FieldDefinition, FieldKey } from './addDataModal.types'
 
 export const UNKNOWN_ERROR =
   'Something went wrong with your request, please try again.'
