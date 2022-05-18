@@ -11,7 +11,7 @@ export const getDayAverage = (data: DataPoint[]) => {
   // Classify in group according to the chosen period.
   data.forEach((dataPoint) => {
     // Find period group.
-    const group = Math.floor(dataPoint.timestamp / (24 * 60 * 60 * 1000))
+    const group = Math.floor(dataPoint.timestamp / 86400000)
 
     // Initialize array.
     if (!classifiedPoints[group]) {
@@ -33,6 +33,5 @@ export const getDayAverage = (data: DataPoint[]) => {
     return sum(perPeriodValues)
   })
 
-  const deltaDays = maxDay - minDay
-  return deltaDays === 0 ? sum(values) : sum(values) / deltaDays
+  return sum(values) / (maxDay - minDay + 1)
 }
