@@ -10,7 +10,7 @@ import { DataPoint } from "./models/dataPoint/DataPoint";
 dotenv.config();
 
 // Not very complete error handler.
-const handleError = (error: Error, res: Response) => res.send(500);
+const handleError = (error: Error, res: Response) => res.sendStatus(500);
 
 // Mongoose
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@factorialtest.kki9q.mongodb.net/?retryWrites=true&w=majority`;
@@ -55,12 +55,12 @@ app.post(
     const newData = new DataPoint({
       name: body.name,
       value: body.value,
-      timestamp: new Date(body.timestamp),
+      timestamp: body.timestamp,
     });
 
     newData.save((err: Error) => {
       if (err) return handleError(err, res);
-      res.send(200);
+      res.sendStatus(200);
     });
   }
 );

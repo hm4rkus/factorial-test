@@ -33,5 +33,6 @@ export const getDayAverage = (data: DataPoint[]) => {
     return sum(perPeriodValues)
   })
 
-  return sum(values) / (maxDay - minDay)
+  const deltaDays = maxDay - minDay
+  return deltaDays === 0 ? sum(values) : sum(values) / deltaDays
 }
