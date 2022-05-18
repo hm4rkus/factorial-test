@@ -66,7 +66,6 @@ export const DashboardPage = (): React.ReactElement => {
       )
       setIsLoading(false)
     } catch (e) {
-      setIsLoading(false)
       addToast(ERROR_FECHING_TOAST)
       console.error(e)
     }
