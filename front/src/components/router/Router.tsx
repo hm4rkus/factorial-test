@@ -1,8 +1,9 @@
+// Components
 import { Route, Routes } from 'react-router-dom'
+import { Page } from 'components'
 
 // Constants
 import { ROUTES } from 'constants/routes'
-import { Page } from 'components/page/Page'
 
 export const Router = () => {
   return (

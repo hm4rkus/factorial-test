@@ -1,3 +1,6 @@
+import React, { useCallback, useState } from 'react'
+
+// Components
 import {
   Modal,
   ModalOverlay,
@@ -8,15 +11,25 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import { Button, InputWithLabel } from 'components'
-import React, { useCallback, useState } from 'react'
+
+// Styles
+import { ButtonContainer, InputContainer } from './addDataModal.styles'
+
+// Types
+import { AddResponse } from 'pages/dashboard/dashboard.types'
+
+// Constants
 import { FIELDS, INITIAL_FIELD_STATE } from './addDataModal.constants'
-import { ButtonContainer, Error, InputContainer } from './addDataModal.styles'
 
 interface AddDataModalProps {
   isOpen?: boolean
   isAdding?: boolean
   onClose: () => void
-  onAdd: (name: string, value: number, timestamp: number) => Promise<string>
+  onAdd: (
+    name: string,
+    value: number,
+    timestamp: number
+  ) => Promise<AddResponse>
 }
 
 export const AddDataModal = ({
@@ -26,7 +39,6 @@ export const AddDataModal = ({
   onAdd,
 }: AddDataModalProps) => {
   const [fieldValues, setFieldValues] = useState(INITIAL_FIELD_STATE)
-  const [error, setError] = useState('')
 
   const resetInputs = useCallback(() => {
     setFieldValues(INITIAL_FIELD_STATE)
@@ -52,10 +64,8 @@ export const AddDataModal = ({
         fieldValues.NAME,
         Number(fieldValues.VALUE),
         new Date(fieldValues.TIMESTAMP).getTime()
-      ).then((errorMessage: string) => {
-        if (errorMessage) {
-          setError(errorMessage)
-        } else {
+      ).then(({ success }) => {
+        if (success) {
           resetInputs()
         }
       })
@@ -85,7 +95,6 @@ export const AddDataModal = ({
                 />
               ))}
             </InputContainer>
-            {error && <Error>{error}</Error>}
           </ModalBody>
           <ModalFooter>
             <ButtonContainer>

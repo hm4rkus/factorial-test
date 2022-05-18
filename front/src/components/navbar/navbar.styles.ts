@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { Heading } from '@chakra-ui/react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 export const NavbarContainer = styled.div`
   height: var(--navbar-height);

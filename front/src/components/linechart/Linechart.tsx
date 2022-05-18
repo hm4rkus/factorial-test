@@ -8,21 +8,28 @@ import {
   YAxis,
 } from 'recharts'
 import { CustomTooltip } from 'components'
+import AutoSizer from 'react-virtualized-auto-sizer'
 
 // Constants
 import { LINECHART_TICK_MARGIN } from './linechart.constants'
-import { dateFormatter } from 'utils/dateFormatter'
-import { numberFormatter } from 'utils'
-import AutoSizer from 'react-virtualized-auto-sizer'
+
+// Utils
+import { dateFormatter, numberFormatter } from 'utils'
+
+// Styles
+import { lineStyles } from './linechart.styles'
 
 interface LineChartProps {
+  // Data that needs to be represented.
   data: unknown[]
+  // Accessor to the data that needs to be represented in the X Axis.
   xAccessor: string
+  // Accessor to the data that needs to be represented in the Y Axis.
   yAccessor: string
+  // Accessor to the label of the data.
   labelAccessor: string
 }
 
-// TODO: Fix resizes not working for some reason.
 export const LineChart = ({
   data,
   xAccessor,
@@ -34,12 +41,7 @@ export const LineChart = ({
       {({ width, height }) => (
         <RechartsLineChart width={width} data={data} height={height}>
           <CartesianGrid />
-          <Line
-            stroke={'var(--linechart-stroke-color)'}
-            strokeWidth={'var(--linechart-stroke-width)'}
-            dataKey={yAccessor}
-            type='monotone'
-          />
+          <Line {...lineStyles} dataKey={yAccessor} type='monotone' />
           <XAxis
             tickFormatter={(value) => dateFormatter(value)}
             dataKey={xAccessor}

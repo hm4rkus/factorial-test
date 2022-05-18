@@ -1,4 +1,7 @@
-import { Navbar } from 'components/navbar'
+// Components
+import { Navbar } from 'components'
+
+// Styles
 import { PageFrame, PageContainer } from './page.styles'
 
 interface PageProps {

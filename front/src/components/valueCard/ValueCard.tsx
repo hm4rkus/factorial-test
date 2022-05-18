@@ -1,5 +1,12 @@
-import { TitledCard } from 'components/titledCard/TitledCard'
 import { useMemo } from 'react'
+
+// Components
+import { TitledCard } from 'components'
+
+// Constants
+import { DEFAULT_TITLE_SIZE } from './valueCard.constants'
+
+// Styles
 import { Value } from './valueCard.styles'
 
 interface ValueCardProps<T> {
@@ -20,7 +27,7 @@ export const ValueCard = <T,>({
   )
 
   return (
-    <TitledCard title={title} size="sm">
+    <TitledCard title={title} size={DEFAULT_TITLE_SIZE}>
       <Value>{`${formattedValue} ${unit}`}</Value>
     </TitledCard>
   )

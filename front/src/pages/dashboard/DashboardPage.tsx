@@ -1,21 +1,28 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Spinner, Heading, useDisclosure } from '@chakra-ui/react'
+
+// Components
+import { Spinner, Heading, useDisclosure, useToast } from '@chakra-ui/react'
+import { ValueCard, Button, Table, LineChart, TitledCard } from 'components'
+import { AddDataModal } from './components'
 
 // Constants
 import {
+  ERROR_FECHING_TOAST,
+  ERROR_POSTING_TOAST,
   EXTRA_INFO_CARDS,
+  HEADING_SIZE,
   LINECHART_ACCESSORS,
+  LINECHART_CARD_TITLE,
   NO_DATA,
+  SUCCESS_TOAST,
+  TABLE_CARD_TITLE,
   TABLE_COLUMNS,
-  UNKNOWN_ERROR,
 } from './dashboard.constants'
-
-// Types
-import { DataPoint } from 'types/DataPoint'
-import { TableData } from './dashboard.types'
 
 // Services
 import { fetchDataPoints, postDataPoint } from './dashboard.services'
+
+// Styles
 import {
   AverageRow,
   CardColumn,
@@ -25,21 +32,27 @@ import {
   NoData,
   TableContainer,
 } from './dashboard.styles'
-import { Table } from 'components/table/Table'
-import { ValueCard, Button } from 'components'
-import { LineChart } from 'components/linechart/Linechart'
-import { getDayAverage } from './dashboard.utils'
-import { TitledCard } from 'components/titledCard/TitledCard'
+
+// Utils
 import { dateFormatter, numberFormatter } from 'utils'
-import { AddDataModal } from './components/addDataModal/AddDataModal'
+import { getDayAverage } from './dashboard.utils'
+
+// Types
+import { DataPoint } from 'types'
+import { AddResponse, TableData } from './dashboard.types'
 
 export const DashboardPage = (): React.ReactElement => {
   const [data, setData] = useState<DataPoint[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAddingPoint, setIsAddingPoint] = useState(false)
 
+  // Chakra Modal hook.
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  // Chakra Toast system.
+  const addToast = useToast()
+
+  // Fetch data function.
   const fetchData = useCallback(async () => {
     try {
       const fetchedData = await fetchDataPoints()
@@ -54,32 +67,42 @@ export const DashboardPage = (): React.ReactElement => {
       setIsLoading(false)
     } catch (e) {
       setIsLoading(false)
+      addToast(ERROR_FECHING_TOAST)
       console.error(e)
     }
   }, [setData, setIsLoading])
 
+  // First data fetch.
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
+  // On add data point.
   const onAddDataPoint = useCallback(
-    async (name: string, value: number, timestamp: number): Promise<string> => {
+    async (
+      name: string,
+      value: number,
+      timestamp: number
+    ): Promise<AddResponse> => {
       try {
         setIsAddingPoint(true)
         await postDataPoint(name, value, timestamp)
+        addToast(SUCCESS_TOAST)
         setIsAddingPoint(false)
         fetchData()
         onClose()
-        return ''
+        return { success: true }
       } catch (e) {
         console.error(e)
+        addToast(ERROR_POSTING_TOAST)
         setIsAddingPoint(false)
-        return UNKNOWN_ERROR
+        return { success: false }
       }
     },
     [onClose, setIsAddingPoint]
   )
 
+  // Calculate averages every time the data changes.
   const averages = useMemo(() => {
     if (data.length) {
       const dayAverage = getDayAverage(data)
@@ -93,6 +116,7 @@ export const DashboardPage = (): React.ReactElement => {
     return { dayAverage: 0, hourAverage: 0, minuteAverage: 0 }
   }, [data])
 
+  // Format data for the table.
   const formattedData: TableData[] = useMemo(() => {
     return data.map((dataElement) => ({
       ...dataElement,
@@ -101,6 +125,7 @@ export const DashboardPage = (): React.ReactElement => {
     }))
   }, [data])
 
+  // Render Spinner when loading.
   if (isLoading) {
     return (
       <LoadingSpinnerContainer>
@@ -118,14 +143,17 @@ export const DashboardPage = (): React.ReactElement => {
         isOpen={isOpen}
       />
       <HeadingRow>
-        <Heading size={'lg'}>Dashboard</Heading>
+        <Heading size={HEADING_SIZE}>Dashboard</Heading>
         <Button onClick={onOpen}>Add Data</Button>
       </HeadingRow>
+      {/** Render no data message when we have no data but are not loading.
+       * Else, Render the dashboard.
+       **/}
       {data.length === 0 ? (
         <NoData>{NO_DATA}</NoData>
       ) : (
         <CardColumn>
-          <TitledCard title={'Data Over Time'}>
+          <TitledCard title={LINECHART_CARD_TITLE}>
             <LineChartContainer>
               <LineChart
                 data={data}
@@ -146,7 +174,7 @@ export const DashboardPage = (): React.ReactElement => {
               />
             ))}
           </AverageRow>
-          <TitledCard title={'Data Table'}>
+          <TitledCard title={TABLE_CARD_TITLE}>
             <TableContainer>
               <Table columns={TABLE_COLUMNS} data={formattedData} />
             </TableContainer>

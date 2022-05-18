@@ -7,6 +7,11 @@ export const GlobalStyle = () => (
         box-sizing: border-box;
       }
 
+      body {
+        font-family: 'Fira Sans', sans-serif;
+        color: var(--black);
+      }
+
       :root {
         /* Colors */
         --primary: #e41943;
@@ -20,13 +25,17 @@ export const GlobalStyle = () => (
         --danger: #dc3545;
         --info: gray;
         --white: white;
-        --black: #151414;
+        --black: #222222;
 
         --chakra-colors-gray-100: #f3f3f3;
 
         /* Navbar */
         --navbar-height: 68px;
         --navbar-border: solid 1px lightgray;
+
+        /* Card */
+        --card-border: solid 1px lightgray;
+        --card-border-radius: 8px;
 
         /* Sizes */
         --size-minuscule: 2px;

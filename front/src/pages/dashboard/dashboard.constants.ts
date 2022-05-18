@@ -1,13 +1,47 @@
+import { UseToastOptions } from '@chakra-ui/react'
+import { HeadingSize } from 'types'
 import {
   DataPointAccessor,
   ExtraInfoCard,
   TableDataAccessor,
 } from './dashboard.types'
 
-export const UNKNOWN_ERROR = 'Something went wrong, please try again'
+// Toasts
+export const SUCCESS_TOAST: UseToastOptions = {
+  title: 'Data added',
+  description: 'Your data has been added!',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const ERROR_FECHING_TOAST: UseToastOptions = {
+  title: 'Data fetch error.',
+  description: 'Your data could not be fetched, please, try again later.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const ERROR_POSTING_TOAST: UseToastOptions = {
+  title: 'Data adding error.',
+  description:
+    'There was an error while adding your data, please, try again later.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+// No data
 export const NO_DATA =
   'You still have not added any Data Points, add data using the button above!'
 
+// Headings
+export const HEADING_SIZE: HeadingSize = 'lg'
+export const LINECHART_CARD_TITLE = 'Data Over Time'
+export const TABLE_CARD_TITLE = 'Data Table'
+
+// Table
 export const TABLE_COLUMNS: { Header: string; accessor: TableDataAccessor }[] =
   [
     {
@@ -24,6 +58,7 @@ export const TABLE_COLUMNS: { Header: string; accessor: TableDataAccessor }[] =
     },
   ]
 
+// Line Chart
 export const LINECHART_ACCESSORS: Record<
   'x' | 'y' | 'label',
   DataPointAccessor

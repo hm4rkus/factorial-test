@@ -1,9 +1,8 @@
 import styled from '@emotion/styled'
 
-// TODO: Colors and sizes;
 export const Card = styled.div`
-  border: solid 1px lightgray;
-  border-radius: 8px;
+  border: var(--card-border);
+  border-radius: var(--card-border-radius);
   padding: var(--size-medium);
   background: var(--white);
 `

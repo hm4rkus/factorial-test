@@ -6,6 +6,10 @@ export interface TableData {
   date: string
 }
 
+export interface AddResponse {
+  success: boolean
+}
+
 export type TableDataAccessor = keyof TableData
 
 export type DataPointAccessor = keyof DataPoint

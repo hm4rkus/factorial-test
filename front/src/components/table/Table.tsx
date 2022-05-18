@@ -1,3 +1,4 @@
+// Components
 import {
   Table as ChakraTable,
   Tbody,
@@ -9,7 +10,9 @@ import {
 import { Column, useTable } from 'react-table'
 
 interface TableProps<T> {
+  // Table data.
   data: T[]
+  // Table columns.
   columns: Column[]
 }
 
@@ -30,7 +33,7 @@ export const Table = <T,>({ data, columns }: TableProps<T>) => {
               {headerGroup.headers.map((column) => {
                 const { key, ...props } = column.getHeaderProps()
                 return (
-                  <Th color={"var(--primary)"} key={key} {...props}>
+                  <Th color={'var(--primary)'} key={key} {...props}>
                     {column.render('Header')}
                   </Th>
                 )

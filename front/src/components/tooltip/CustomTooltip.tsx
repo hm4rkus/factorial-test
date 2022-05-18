@@ -2,8 +2,7 @@
 import { Date, Name, TooltipContainer, Value } from './customTooltip.styles'
 
 // Utils
-import { numberFormatter } from 'utils/numberFormatter'
-import { dateFormatter } from 'utils'
+import { numberFormatter, dateFormatter } from 'utils'
 
 interface CustomTooltipProps {
   labelAccessor?: string
@@ -11,6 +10,7 @@ interface CustomTooltipProps {
   active?: boolean
   payload?: any
 }
+// I try to never use "any" but the types of the charts library are not very good.
 
 export const CustomTooltip = ({
   active,

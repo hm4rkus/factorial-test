@@ -1,5 +1,9 @@
-import { Button as ChakraButton } from '@chakra-ui/react'
 import React from 'react'
+
+// Components
+import { Button as ChakraButton } from '@chakra-ui/react'
+
+// Styles
 import { getStyleProps } from './button.styles'
 
 interface ButtonProps {

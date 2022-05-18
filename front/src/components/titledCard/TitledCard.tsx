@@ -1,18 +1,23 @@
 import React from 'react'
 
 // Components
-import { Card } from 'components/card'
-import { Heading } from 'components/heading'
+import { Card, Heading } from 'components'
+
+// Constants
+import { DEFAULT_TITLE_SIZE } from './titledCard.constants'
+
+// Types
+import { HeadingSize } from 'types/HeadingSize'
 
 interface TitledCardProps {
   children: React.ReactNode
   title: string
-  size?: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs'
+  size?: HeadingSize
 }
 export const TitledCard = ({
   children,
   title,
-  size = 'md',
+  size = DEFAULT_TITLE_SIZE,
 }: TitledCardProps) => (
   <Card>
     <Heading size={size}>{title}</Heading>
