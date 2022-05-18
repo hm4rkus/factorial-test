@@ -16,5 +16,5 @@ export const PageFrame = styled.div`
 export const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: var(--size-large);
+  margin: var(--size-medium);
 `

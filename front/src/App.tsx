@@ -7,7 +7,7 @@ import { Router } from 'components'
 import { Providers } from 'components/providers'
 
 // Styles
-import { GlobalStyle } from 'app.styles'
+import { GlobalStyle } from 'GlobalStyle'
 
 function App() {
   return (

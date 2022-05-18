@@ -1,2 +1,1 @@
-export const LINECHART_HEIGHT = 400
 export const LINECHART_TICK_MARGIN = 12

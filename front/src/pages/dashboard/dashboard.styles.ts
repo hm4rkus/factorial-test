@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { Card, Heading } from 'components'
 
 export const LoadingSpinnerContainer = styled.div`
   width: 100%;
@@ -9,10 +8,16 @@ export const LoadingSpinnerContainer = styled.div`
   justify-content: center;
   color: var(--primary);
 `
+
+export const NoData = styled.div`
+  font-weight: var(--font-weight-medium);
+  color: var(--info);
+`
+
 export const CardColumn = styled.div`
   & > * {
     &:not(:first-of-type) {
-      margin-top: var(--size-large);
+      margin-top: var(--size-medium);
     }
   }
 `
@@ -29,6 +34,10 @@ export const TableContainer = styled.div`
   overflow: auto;
 `
 
+export const LineChartContainer = styled.div`
+  height: 400px;
+`
+
 export const AverageRow = styled.div`
   display: flex;
 
@@ -38,7 +47,7 @@ export const AverageRow = styled.div`
 
   & > * {
     &:not(:last-of-type) {
-      margin-right: var(--size-large);
+      margin-right: var(--size-medium);
     }
     width: 100%;
 
@@ -46,7 +55,7 @@ export const AverageRow = styled.div`
       margin-right: 0px !important;
 
       &:not(:first-of-type) {
-        margin-top: var(--size-large);
+        margin-top: var(--size-medium);
       }
     }
   }

@@ -13,3 +13,7 @@ export const ButtonContainer = styled.div`
     }
   }
 `
+
+export const Error = styled.div`
+  color: var(--danger);
+`

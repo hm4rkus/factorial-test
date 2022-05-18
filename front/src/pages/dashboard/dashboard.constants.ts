@@ -5,6 +5,8 @@ import {
 } from './dashboard.types'
 
 export const UNKNOWN_ERROR = 'Something went wrong, please try again'
+export const NO_DATA =
+  'You still have not added any Data Points, add data using the button above!'
 
 export const TABLE_COLUMNS: { Header: string; accessor: TableDataAccessor }[] =
   [

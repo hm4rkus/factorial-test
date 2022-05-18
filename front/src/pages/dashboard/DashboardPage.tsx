@@ -5,6 +5,7 @@ import { Spinner, Heading, useDisclosure } from '@chakra-ui/react'
 import {
   EXTRA_INFO_CARDS,
   LINECHART_ACCESSORS,
+  NO_DATA,
   TABLE_COLUMNS,
   UNKNOWN_ERROR,
 } from './dashboard.constants'
@@ -19,7 +20,9 @@ import {
   AverageRow,
   CardColumn,
   HeadingRow,
+  LineChartContainer,
   LoadingSpinnerContainer,
+  NoData,
   TableContainer,
 } from './dashboard.styles'
 import { Table } from 'components/table/Table'
@@ -34,7 +37,6 @@ export const DashboardPage = (): React.ReactElement => {
   const [data, setData] = useState<DataPoint[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isAddingPoint, setIsAddingPoint] = useState(false)
-  const [error, setError] = useState('')
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -52,31 +54,30 @@ export const DashboardPage = (): React.ReactElement => {
       setIsLoading(false)
     } catch (e) {
       setIsLoading(false)
-      setError(UNKNOWN_ERROR)
       console.error(e)
     }
-  }, [setData, setIsLoading, setError])
+  }, [setData, setIsLoading])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
 
   const onAddDataPoint = useCallback(
-    async (name: string, value: number, timestamp: number) => {
+    async (name: string, value: number, timestamp: number): Promise<string> => {
       try {
         setIsAddingPoint(true)
         await postDataPoint(name, value, timestamp)
         setIsAddingPoint(false)
         fetchData()
         onClose()
-        return
+        return ''
       } catch (e) {
         console.error(e)
-        setError(UNKNOWN_ERROR)
         setIsAddingPoint(false)
+        return UNKNOWN_ERROR
       }
     },
-    [onClose, setIsAddingPoint, setError]
+    [onClose, setIsAddingPoint]
   )
 
   const averages = useMemo(() => {
@@ -114,39 +115,44 @@ export const DashboardPage = (): React.ReactElement => {
         isAdding={isAddingPoint}
         onAdd={onAddDataPoint}
         onClose={onClose}
-        error={error}
         isOpen={isOpen}
       />
       <HeadingRow>
         <Heading size={'lg'}>Dashboard</Heading>
         <Button onClick={onOpen}>Add Data</Button>
       </HeadingRow>
-      <CardColumn>
-        <TitledCard title={'Data Over Time'}>
-          <LineChart
-            data={data}
-            xAccessor={LINECHART_ACCESSORS.x}
-            yAccessor={LINECHART_ACCESSORS.y}
-            labelAccessor={LINECHART_ACCESSORS.label}
-          />
-        </TitledCard>
-        <AverageRow>
-          {EXTRA_INFO_CARDS.map(({ title, accessor, unit }) => (
-            <ValueCard
-              key={title}
-              title={title}
-              unit={unit}
-              value={averages[accessor]}
-              formatter={numberFormatter}
-            />
-          ))}
-        </AverageRow>
-        <TitledCard title={'Data Table'}>
-          <TableContainer>
-            <Table columns={TABLE_COLUMNS} data={formattedData} />
-          </TableContainer>
-        </TitledCard>
-      </CardColumn>
+      {data.length === 0 ? (
+        <NoData>{NO_DATA}</NoData>
+      ) : (
+        <CardColumn>
+          <TitledCard title={'Data Over Time'}>
+            <LineChartContainer>
+              <LineChart
+                data={data}
+                xAccessor={LINECHART_ACCESSORS.x}
+                yAccessor={LINECHART_ACCESSORS.y}
+                labelAccessor={LINECHART_ACCESSORS.label}
+              />
+            </LineChartContainer>
+          </TitledCard>
+          <AverageRow>
+            {EXTRA_INFO_CARDS.map(({ title, accessor, unit }) => (
+              <ValueCard
+                key={title}
+                title={title}
+                unit={unit}
+                value={averages[accessor]}
+                formatter={numberFormatter}
+              />
+            ))}
+          </AverageRow>
+          <TitledCard title={'Data Table'}>
+            <TableContainer>
+              <Table columns={TABLE_COLUMNS} data={formattedData} />
+            </TableContainer>
+          </TitledCard>
+        </CardColumn>
+      )}
     </>
   )
 }

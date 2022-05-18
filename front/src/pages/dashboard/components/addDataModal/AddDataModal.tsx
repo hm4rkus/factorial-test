@@ -10,24 +10,23 @@ import {
 import { Button, InputWithLabel } from 'components'
 import React, { useCallback, useState } from 'react'
 import { FIELDS, INITIAL_FIELD_STATE } from './addDataModal.constants'
-import { ButtonContainer, InputContainer } from './addDataModal.styles'
+import { ButtonContainer, Error, InputContainer } from './addDataModal.styles'
 
 interface AddDataModalProps {
   isOpen?: boolean
   isAdding?: boolean
-  error?: string
   onClose: () => void
-  onAdd: (name: string, value: number, timestamp: number) => Promise<void>
+  onAdd: (name: string, value: number, timestamp: number) => Promise<string>
 }
 
 export const AddDataModal = ({
   isOpen,
   onClose,
-  error,
   isAdding,
   onAdd,
 }: AddDataModalProps) => {
   const [fieldValues, setFieldValues] = useState(INITIAL_FIELD_STATE)
+  const [error, setError] = useState('')
 
   const resetInputs = useCallback(() => {
     setFieldValues(INITIAL_FIELD_STATE)
@@ -53,8 +52,12 @@ export const AddDataModal = ({
         fieldValues.NAME,
         Number(fieldValues.VALUE),
         new Date(fieldValues.TIMESTAMP).getTime()
-      ).then(() => {
-        resetInputs()
+      ).then((errorMessage: string) => {
+        if (errorMessage) {
+          setError(errorMessage)
+        } else {
+          resetInputs()
+        }
       })
     },
     [fieldValues, onAdd]
@@ -82,10 +85,11 @@ export const AddDataModal = ({
                 />
               ))}
             </InputContainer>
+            {error && <Error>{error}</Error>}
           </ModalBody>
           <ModalFooter>
             <ButtonContainer>
-              <Button disabled={isAdding} onClick={onClose}>
+              <Button isSecondary disabled={isAdding} onClick={onClose}>
                 Close
               </Button>
               <Button disabled={isAdding} type={'submit'}>
