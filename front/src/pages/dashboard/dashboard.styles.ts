@@ -19,6 +19,10 @@ export const CardColumn = styled.div`
     &:not(:first-of-type) {
       margin-top: var(--size-medium);
     }
+
+    &:last-of-type {
+      margin-bottom: var(--size-medium);
+    }
   }
 `
 
